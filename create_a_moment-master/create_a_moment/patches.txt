@@ -1,2 +1,0 @@
-execute:from create_a_moment.install import after_install; after_install() # 1
-create_a_moment.patches.set_trip_event_owner

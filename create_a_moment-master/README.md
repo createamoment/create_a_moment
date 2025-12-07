@@ -1,7 +1,0 @@
-## Create A Moment
-
--
-
-#### License
-
--
