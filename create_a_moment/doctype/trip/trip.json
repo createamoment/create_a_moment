@@ -1,0 +1,754 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2021-10-24 20:02:48.046128",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "trip_type",
+  "customer",
+  "column_break_3",
+  "country",
+  "section_break_4",
+  "arrival",
+  "column_break_6",
+  "arrival_date",
+  "arrival_time",
+  "starter_package_section",
+  "starter_package_button",
+  "starter_package_inquiry",
+  "starter_package_booking_form",
+  "au_pair_button",
+  "au_pair_inquiry",
+  "au_pair_booking_form",
+  "starter_package_inquiry_received",
+  "au_pair_inquiry_received",
+  "waiting_for_payment",
+  "starter_package_sales_invoice_attach",
+  "payment_received",
+  "waiting_for_starter_package_booking_form",
+  "starter_package_booking_form_button",
+  "starter_package_booking_form_received",
+  "waiting_for_au_pair_booking_form",
+  "au_pair_booking_form_button",
+  "au_pair_booking_form_received",
+  "hostel_booked",
+  "bank_opening_date_arranged",
+  "prep_call_date_arranged",
+  "welcome_package_sent",
+  "airport_shuttle_booked",
+  "free_walking_tour_booked",
+  "column_break_34",
+  "starter_package_sales_invoice",
+  "payment_due_date",
+  "flight_section",
+  "flight_button",
+  "flight_inquiry",
+  "flight_inquiry_received",
+  "camper_presale_section",
+  "camper_presale_button",
+  "camper_presale_inquiry",
+  "camper_presale_inquiry_received",
+  "camper_pick_up_date_arranged",
+  "camper_pick_up_section",
+  "camper_pick_up",
+  "column_break_47",
+  "camper_pick_up_date",
+  "camper_pick_up_time",
+  "prep_call_section",
+  "prep_call_date",
+  "prep_call_time",
+  "column_break_37",
+  "prep_call",
+  "airport_shuttle_section",
+  "shuttle_number",
+  "column_break_42",
+  "ticket",
+  "hostel_section",
+  "hostel_booking_number",
+  "hostel_booking_confirmation",
+  "bank_account_section",
+  "bank_account_number",
+  "bank_account_opening",
+  "column_break_49",
+  "bank_account_opening_date",
+  "bank_account_opening_time",
+  "free_walking_tour_section",
+  "free_walking_tour_booking_number",
+  "free_walking_tour",
+  "column_break_54",
+  "free_walking_tour_date",
+  "free_walking_tour_time",
+  "section_break_57",
+  "sales_partner",
+  "section_break_69",
+  "starter_email_sent_1",
+  "starter_email_sent_2",
+  "starter_email_sent_3",
+  "starter_email_sent_4",
+  "starter_email_sent_5",
+  "starter_email_sent_6",
+  "starter_email_sent_7",
+  "column_break_validation",
+  "inquiry_email_sent_hostel",
+  "inquiry_email_sent_bank"
+ ],
+ "fields": [
+  {
+   "fieldname": "country",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Land",
+   "options": "\nAustralien\nNeuseeland",
+   "read_only_depends_on": "eval: frappe.system_user == \"no\"",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "trip_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Trip",
+   "options": "Working Holiday\nAu Pair",
+   "read_only_depends_on": "eval: frappe.system_user == \"no\"",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "starter_package_section",
+   "fieldtype": "Section Break",
+   "label": "Starter Package"
+  },
+  {
+   "fieldname": "flight_section",
+   "fieldtype": "Section Break",
+   "label": "Flight"
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "starter_package_inquiry",
+   "fieldtype": "Link",
+   "label": "Starter Package Inquiry",
+   "options": "Inquiry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "camper_presale_section",
+   "fieldtype": "Section Break",
+   "label": "Camper Presale"
+  },
+  {
+   "depends_on": "eval: (\n    !(frappe.system_user == \"no\")\n    || doc.hostel_booked\n)",
+   "fieldname": "hostel_section",
+   "fieldtype": "Section Break",
+   "label": "Hostel"
+  },
+  {
+   "fieldname": "hostel_booking_confirmation",
+   "fieldtype": "Text",
+   "label": "Hostel Buchungsbest\u00e4tigung",
+   "read_only_depends_on": "eval: frappe.system_user == \"no\""
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.starter_package_inquiry_received",
+   "fieldname": "starter_package_inquiry_received",
+   "fieldtype": "Check",
+   "label": "Starter Package Anfrage erhalten",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: (\n    doc.starter_package_inquiry_received\n    || doc.au_pair_inquiry_received\n)",
+   "fieldname": "waiting_for_payment",
+   "fieldtype": "Check",
+   "label": "Warten auf Zahlung",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: (\n    doc.starter_package_inquiry_received\n    || doc.au_pair_inquiry_received\n)",
+   "fieldname": "payment_received",
+   "fieldtype": "Check",
+   "label": "Zahlung erhalten",
+   "read_only_depends_on": "eval: frappe.system_user == \"no\""
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.starter_package_inquiry_received",
+   "fieldname": "hostel_booked",
+   "fieldtype": "Check",
+   "label": "Hostel gebucht",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: (\n    doc.starter_package_inquiry_received\n)",
+   "fieldname": "airport_shuttle_booked",
+   "fieldtype": "Check",
+   "label": "Airport Shuttle gebucht",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: (\n    doc.starter_package_inquiry_received\n    || doc.au_pair_inquiry_received\n)",
+   "fieldname": "bank_opening_date_arranged",
+   "fieldtype": "Check",
+   "label": "Kontoer\u00f6ffnung arrangiert",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.starter_package_inquiry_received",
+   "fieldname": "free_walking_tour_booked",
+   "fieldtype": "Check",
+   "label": "Free Walking Tour gebucht",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: (\n    doc.starter_package_inquiry_received\n    || doc.au_pair_inquiry_received\n)",
+   "fieldname": "prep_call_date_arranged",
+   "fieldtype": "Check",
+   "label": "Vorbereitungsgespr\u00e4ch arrangiert",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "arrival",
+   "fieldtype": "Link",
+   "label": "Ankunft",
+   "options": "Trip Event",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: (\n    !(frappe.system_user == \"no\")\n    || doc.bank_opening_date_arranged\n)",
+   "fieldname": "bank_account_section",
+   "fieldtype": "Section Break",
+   "label": "Bankkonto"
+  },
+  {
+   "fieldname": "bank_account_number",
+   "fieldtype": "Data",
+   "label": "Kontonummer",
+   "read_only_depends_on": "eval: frappe.system_user == \"no\""
+  },
+  {
+   "depends_on": "eval: doc.bank_account_opening_date",
+   "fetch_from": "bank_account_opening.date",
+   "fieldname": "bank_account_opening_date",
+   "fieldtype": "Date",
+   "label": "Datum der Kontoer\u00f6ffnung",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: (\n    !(frappe.system_user == \"no\")\n    || doc.prep_call_date_arranged\n)",
+   "fieldname": "prep_call_section",
+   "fieldtype": "Section Break",
+   "label": "Vorbereitungsgespr\u00e4ch"
+  },
+  {
+   "depends_on": "eval: doc.prep_call_date",
+   "fetch_from": "prep_call.date",
+   "fieldname": "prep_call_date",
+   "fieldtype": "Date",
+   "label": "Datum Vorbereitungsgespr\u00e4ch",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: (\n    !(frappe.system_user == \"no\")\n    || doc.airport_shuttle_booked\n)",
+   "fieldname": "airport_shuttle_section",
+   "fieldtype": "Section Break",
+   "label": "Airport Shuttle"
+  },
+  {
+   "fieldname": "shuttle_number",
+   "fieldtype": "Data",
+   "label": "Shuttle Number",
+   "read_only_depends_on": "eval: frappe.system_user == \"no\""
+  },
+  {
+   "fieldname": "column_break_37",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ticket",
+   "fieldtype": "Attach",
+   "label": "Ticket"
+  },
+  {
+   "fieldname": "hostel_booking_number",
+   "fieldtype": "Data",
+   "label": "Hostel Buchungsnummer",
+   "read_only_depends_on": "eval: frappe.system_user == \"no\""
+  },
+  {
+   "depends_on": "eval: (\n    !(frappe.system_user == \"no\")\n    || doc.free_walking_tour_booked\n)",
+   "fieldname": "free_walking_tour_section",
+   "fieldtype": "Section Break",
+   "label": "Free Walking Tour"
+  },
+  {
+   "fieldname": "free_walking_tour_booking_number",
+   "fieldtype": "Data",
+   "label": "Free Walking Tour Booking Number",
+   "read_only_depends_on": "eval: frappe.system_user == \"no\""
+  },
+  {
+   "depends_on": "eval: doc.free_walking_tour_date",
+   "fetch_from": "free_walking_tour.date",
+   "fieldname": "free_walking_tour_date",
+   "fieldtype": "Date",
+   "label": "Datum Free Walking Tour",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.flight_inquiry_received",
+   "fieldname": "flight_inquiry_received",
+   "fieldtype": "Check",
+   "label": "Flug Anfrage erhalten",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.starter_package_inquiry_received",
+   "fieldname": "starter_package_booking_form_received",
+   "fieldtype": "Check",
+   "label": "Starter Package Buchungsformular erhalten",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.starter_package_inquiry_received",
+   "fieldname": "waiting_for_starter_package_booking_form",
+   "fieldtype": "Check",
+   "label": "Warten auf Starter Package Buchungsformular",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.camper_presale_inquiry_received",
+   "fieldname": "camper_presale_inquiry_received",
+   "fieldtype": "Check",
+   "label": "Camper Presale Anfrage erhalten",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.arrival_date",
+   "fetch_from": "arrival.date",
+   "fieldname": "arrival_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Ankunftsdatum",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "prep_call",
+   "fieldtype": "Link",
+   "label": "Vorbereitungsgespr\u00e4ch",
+   "options": "Trip Event",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "bank_account_opening",
+   "fieldtype": "Link",
+   "label": "Kontoer\u00f6ffnung",
+   "options": "Trip Event",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "free_walking_tour",
+   "fieldtype": "Link",
+   "label": "Free Walking Tour",
+   "options": "Trip Event",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "camper_presale_inquiry",
+   "fieldtype": "Link",
+   "label": "Camper Presale Anfrage erhalten",
+   "options": "Inquiry",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "flight_inquiry",
+   "fieldtype": "Link",
+   "label": "Flight Inquiry",
+   "options": "Inquiry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_42",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Kunde",
+   "options": "Customer",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.arrival_time",
+   "fetch_from": "arrival.time",
+   "fieldname": "arrival_time",
+   "fieldtype": "Time",
+   "label": "Ankunftszeit",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.prep_call_time",
+   "fetch_from": "prep_call.time",
+   "fieldname": "prep_call_time",
+   "fieldtype": "Time",
+   "label": "Uhrzeit Vorbereitungsgespr\u00e4ch",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_49",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.bank_account_opening_time",
+   "fetch_from": "bank_account_opening.time",
+   "fieldname": "bank_account_opening_time",
+   "fieldtype": "Time",
+   "label": "Uhrzeit der Kontoer\u00f6ffnung",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.free_walking_tour_time",
+   "fetch_from": "free_walking_tour.time",
+   "fieldname": "free_walking_tour_time",
+   "fieldtype": "Time",
+   "label": "Uhrzeit Free Walking Tour",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_54",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "starter_package_booking_form",
+   "fieldtype": "Link",
+   "label": "Starter Package Booking Form Inquiry",
+   "options": "Inquiry",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: (\n    doc.starter_package_inquiry_received\n    || doc.au_pair_inquiry_received\n)",
+   "fieldname": "welcome_package_sent",
+   "fieldtype": "Check",
+   "label": "Welcome Package versendet",
+   "read_only_depends_on": "eval: frappe.system_user == \"no\""
+  },
+  {
+   "fieldname": "section_break_57",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == 'no')",
+   "fieldname": "sales_partner",
+   "fieldtype": "Link",
+   "label": "Sales Partner",
+   "options": "Sales Partner"
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "au_pair_booking_form",
+   "fieldtype": "Link",
+   "label": "Au Pair Booking Form Inquiry",
+   "options": "Inquiry",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.au_pair_inquiry_received",
+   "fieldname": "waiting_for_au_pair_booking_form",
+   "fieldtype": "Check",
+   "label": "Warten auf Au Pair Buchungsformular",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.au_pair_inquiry_received",
+   "fieldname": "au_pair_booking_form_received",
+   "fieldtype": "Check",
+   "label": "Au Pair Buchungsformular erhalten",
+   "options": "\n",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "au_pair_inquiry",
+   "fieldtype": "Link",
+   "label": "Au Pair Inquiry",
+   "options": "Inquiry",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.au_pair_inquiry_received",
+   "fieldname": "au_pair_inquiry_received",
+   "fieldtype": "Check",
+   "label": "Au Pair Anfrage erhalten",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "T-.YYYY.-"
+  },
+  {
+   "depends_on": "eval: (\n    !doc.flight_inquiry_received\n    && frappe.system_user == \"no\"\n)",
+   "fieldname": "flight_button",
+   "fieldtype": "HTML",
+   "options": "<a class=\"btn btn-primary mb-4\" href=\"#\" id=\"flight_button\">Flug buchen</a>"
+  },
+  {
+   "depends_on": "eval: (\n    !doc.camper_presale_inquiry_received\n    && frappe.system_user == \"no\"\n)",
+   "fieldname": "camper_presale_button",
+   "fieldtype": "HTML",
+   "options": "<a class=\"btn btn-primary mb-4\" href=\"#\" id=\"camper_presale_button\">Camper kaufen</a>"
+  },
+  {
+   "depends_on": "eval: (\n    !doc.starter_package_inquiry_received\n    && doc.trip_type == \"Working Holiday\"\n    && frappe.system_user == \"no\"\n)",
+   "fieldname": "starter_package_button",
+   "fieldtype": "HTML",
+   "options": "<a class=\"btn btn-primary mb-4\" href=\"#\" id=\"starter_package_button\">Starter Package anfragen</a>"
+  },
+  {
+   "depends_on": "eval: (\n    !doc.au_pair_inquiry_received\n    && doc.trip_type == \"Au Pair\"\n    && frappe.system_user == \"no\"\n)",
+   "fieldname": "au_pair_button",
+   "fieldtype": "HTML",
+   "options": "<a class=\"btn btn-primary mb-4\" href=\"#\" id=\"au_pair_button\">Au Pair anfragen</a>"
+  },
+  {
+   "depends_on": "eval: (\n    doc.waiting_for_starter_package_booking_form\n    && !doc.starter_package_booking_form\n    && frappe.system_user == \"no\"\n)",
+   "fieldname": "starter_package_booking_form_button",
+   "fieldtype": "HTML",
+   "options": "<a class=\"btn btn-primary mb-4\" href=\"#\" id=\"starter_package_booking_form_button\">Starter Package Buchungsformular ausf\u00fcllen</a>"
+  },
+  {
+   "depends_on": "eval: (\n    doc.waiting_for_au_pair_booking_form\n    && !doc.au_pair_booking_form\n    && frappe.system_user == \"no\"\n)",
+   "fieldname": "au_pair_booking_form_button",
+   "fieldtype": "HTML",
+   "options": "<a class=\"btn btn-primary mb-4\" href=\"#\" id=\"au_pair_booking_form_button\">Au Pair Buchungsformular ausf\u00fcllen</a>"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "description": "eMail f\u00fcr 2. Booking Form",
+   "fieldname": "starter_email_sent_1",
+   "fieldtype": "Check",
+   "label": "Starter Email Sent 1"
+  },
+  {
+   "fieldname": "section_break_69",
+   "fieldtype": "Section Break",
+   "label": "Email Validation"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "description": "Best\u00e4tigung f\u00fcr Vorabgespr\u00e4ch Termin",
+   "fieldname": "starter_email_sent_2",
+   "fieldtype": "Check",
+   "label": "Starter Email Sent 2"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "description": "Best\u00e4tigung f\u00fcr Hostel",
+   "fieldname": "starter_email_sent_3",
+   "fieldtype": "Check",
+   "label": "Starter Email Sent 3"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "description": "Best\u00e4tigung f\u00fcr Airport Shuttle",
+   "fieldname": "starter_email_sent_4",
+   "fieldtype": "Check",
+   "label": "Starter Email Sent 4"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "description": "Best\u00e4tigung f\u00fcr die Bank",
+   "fieldname": "starter_email_sent_5",
+   "fieldtype": "Check",
+   "label": "Starter Email Sent 5"
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "description": "Welcome Package versendet",
+   "fieldname": "starter_email_sent_6",
+   "fieldtype": "Check",
+   "label": "Starter email sent 6"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "starter_email_sent_7",
+   "fieldtype": "Check",
+   "label": "Starter email sent 7"
+  },
+  {
+   "fieldname": "column_break_validation",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: (\n    !(frappe.system_user == \"no\")\n    || doc.starter_package_sales_invoice_attach\n)",
+   "fieldname": "starter_package_sales_invoice_attach",
+   "fieldtype": "Attach",
+   "label": "Starter Package Rechnung"
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "starter_package_sales_invoice",
+   "fieldtype": "Link",
+   "label": "Starter Package Sales Invoice",
+   "options": "Sales Invoice"
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "camper_pick_up",
+   "fieldtype": "Link",
+   "label": "Camper Pick Up",
+   "options": "Trip Event",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_47",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "inquiry_email_sent_hostel",
+   "fieldtype": "Check",
+   "label": "Inquiry email Hostel"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fieldname": "inquiry_email_sent_bank",
+   "fieldtype": "Check",
+   "label": "Inquiry email Bankkonto"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: doc.camper_presale_inquiry_received",
+   "fieldname": "camper_pick_up_date_arranged",
+   "fieldtype": "Check",
+   "label": "Camper Pick Up arrangiert",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.camper_pick_up_date",
+   "fetch_from": "camper_pick_up.date",
+   "fieldname": "camper_pick_up_date",
+   "fieldtype": "Date",
+   "label": "Datum Camper Pick Up",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.camper_pick_up_time",
+   "fetch_from": "camper_pick_up.time",
+   "fieldname": "camper_pick_up_time",
+   "fieldtype": "Time",
+   "label": "Uhrzeit Camper Pick Up",
+   "read_only": 1
+  },
+  {
+   "fieldname": "camper_pick_up_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval: !(frappe.system_user == \"no\")",
+   "fetch_from": "starter_package_sales_invoice.due_date",
+   "fieldname": "payment_due_date",
+   "fieldtype": "Date",
+   "label": "Payment Due Date",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Trip Event",
+   "link_fieldname": "trip"
+  }
+ ],
+ "modified": "2022-10-28 14:02:17.626880",
+ "modified_by": "Administrator",
+ "module": "Create A Moment",
+ "name": "Trip",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Trip Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "if_owner": 1,
+   "read": 1,
+   "role": "Customer"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "trip_type",
+ "track_changes": 1
+}
