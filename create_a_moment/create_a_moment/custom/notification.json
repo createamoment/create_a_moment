@@ -1,0 +1,32 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "Notification",
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2022-03-09 21:04:35.912504",
+   "default_value": null,
+   "doc_type": "Notification",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "message",
+   "idx": 0,
+   "modified": "2022-03-09 21:04:35.912504",
+   "modified_by": "Administrator",
+   "name": "Notification-message-fieldtype",
+   "owner": "Administrator",
+   "parent": null,
+   "parentfield": null,
+   "parenttype": null,
+   "property": "fieldtype",
+   "property_type": "Select",
+   "row_name": null,
+   "value": "HTML Editor"
+  }
+ ],
+ "sync_on_migrate": 1
+}
