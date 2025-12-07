@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "create_a_moment"
+version = "1.0.0"
+description = "-"
+authors = [
+  { name = "ALYF GmbH", email = "hallo@alyf.de" }
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.frappe]
+app_name = "create_a_moment"
+app_title = "Create A Moment"
+app_publisher = "ALYF GmbH"
+app_email = "hallo@alyf.de"
+app_license = "MIT"
