@@ -1,14 +1,16 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "create_a_moment"
-version = "0.0.1"
-description = "Custom ERPNext App"
+version = "1.0.0"
+description = "-"
 authors = [
   { name = "ALYF GmbH", email = "hallo@alyf.de" }
 ]
+requires-python = ">=3.10"
+dependencies = []
 
 [tool.frappe]
 app_name = "create_a_moment"
